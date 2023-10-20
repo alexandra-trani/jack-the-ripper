@@ -64,4 +64,14 @@ indices = [i for i in range(len(tag)) if tag[i] == '5.999']
 tf_tag = [item for index, item in enumerate(tag) if index in indices]
 tf_name = [item for index, item in enumerate(name) if index in indices]
 tf_define = [item for index, item in enumerate(define) if index in indices]
-# %
+# %%
+tf_title = []
+tf_cells = []
+for title in tf_define:
+        lsplit = re.split(r"\.", title)
+        tf_title.append(lsplit[0])
+        try:
+                tf_cells.append(lsplit[1])
+        except:
+                tf_cells.append("")
+# %%
