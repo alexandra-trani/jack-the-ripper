@@ -10,9 +10,13 @@ pg_end = 451
 # change the file path to the file needed
 file = 'MIL-STD-1472H.pdf'
 # update the name of the military standard you are ripping from
-mil_std = '1472H'
+mil_std = 'MIL-STD-1472H'
 # choose directory to save images to
 target_name = 'MIL-STD-1472H_output'
+# optional toggle to filter out tables and figs
+# set this to True if you would like text from tables and figures
+# to be included in the output
+show_tables = False
 
 
 #####################################################
@@ -69,5 +73,8 @@ df = pd.DataFrame(list(
 # Add Military Standard identifications and create primary keys
 df['MIL-STD'] = mil_std
 df['ID'] = df['MIL-STD'] + "." + df['Tag']
+#
+if show_tables == False:
+        df = df[df.Tag != '5.999']
 # export to csv 
 df.to_csv(f'{target_name}.csv', header=True, index=False)

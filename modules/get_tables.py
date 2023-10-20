@@ -71,19 +71,7 @@ for line in section:
                 define.append(second[1])
         except:
                 define.append('')
-        
-#%%
-# create pandas dataframe from lists
-df = pd.DataFrame(list(
-                  zip(tag, name, define)
-                  ), columns=['Tag', 'Name', 'Definition'])
 
-# Add Military Standard identifications and create primary keys
-df['MIL-STD'] = "1472H"
-df['ID'] = df['MIL-STD'] + "." + df['Tag']
-# export to excel 
-df.to_csv('1472H.csv', header=True, index=False)
-# %%
 # get a list of indices for all tables and figures
 indices = [i for i in range(len(tag)) if tag[i] == '5.999']
 tf_tag = [item for index, item in enumerate(tag) if index in indices]
