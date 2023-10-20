@@ -8,7 +8,7 @@ page = 43
 # list the ending page 
 pg_end = 451
 # get a placeholder for all the text that we're saving 
-text = extract_text("/Users/atrani3/Downloads/MIL-STD-1472H.pdf", 
+text = extract_text("MIL-STD-1472H.pdf", 
                     page_numbers=list(range(page,pg_end)))
 
 # replace page header with blank text
