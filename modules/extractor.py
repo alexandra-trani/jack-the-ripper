@@ -7,10 +7,24 @@ import pandas as pd
 page = 43
 # list the ending page 
 pg_end = 451
-# get a placeholder for all the text that we're saving 
-text = extract_text("MIL-STD-1472H.pdf", 
-                    page_numbers=list(range(page,pg_end)))
+# change the file path to the file needed
+file = 'MIL-STD-1472H.pdf'
+# update the name of the military standard you are ripping from
+mil_std = '1472H'
+# choose directory to save images to
+target_name = 'MIL-STD-1472H_output'
 
+
+#####################################################
+
+# DO NOT CHANGE CODE BELOW THIS POINT
+
+######################################################
+
+
+# get a placeholder for all the text that we're saving 
+text = extract_text(file, 
+                    page_numbers=list(range(page,pg_end)))
 # replace page header with blank text
 text = re.sub(r"MIL-STD-1472H\s*", "", text)
 # replace page header with blank text
@@ -47,31 +61,13 @@ for line in section:
         except:
                 define.append('')
         
-#%%
 # create pandas dataframe from lists
 df = pd.DataFrame(list(
                   zip(tag, name, define)
                   ), columns=['Tag', 'Name', 'Definition'])
 
 # Add Military Standard identifications and create primary keys
-df['MIL-STD'] = "1472H"
+df['MIL-STD'] = mil_std
 df['ID'] = df['MIL-STD'] + "." + df['Tag']
-# export to excel 
-df.to_csv('1472H.csv', header=True, index=False)
-# %%
-# get a list of indices for all tables and figures
-indices = [i for i in range(len(tag)) if tag[i] == '5.999']
-tf_tag = [item for index, item in enumerate(tag) if index in indices]
-tf_name = [item for index, item in enumerate(name) if index in indices]
-tf_define = [item for index, item in enumerate(define) if index in indices]
-# %%
-tf_title = []
-tf_cells = []
-for title in tf_define:
-        lsplit = re.split(r"\.", title)
-        tf_title.append(lsplit[0])
-        try:
-                tf_cells.append(lsplit[1])
-        except:
-                tf_cells.append("")
-# %%
+# export to csv 
+df.to_csv(f'{target_name}.csv', header=True, index=False)
